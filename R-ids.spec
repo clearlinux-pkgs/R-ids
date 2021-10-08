@@ -4,7 +4,7 @@
 #
 Name     : R-ids
 Version  : 1.0.1
-Release  : 1
+Release  : 2
 URL      : https://cran.r-project.org/src/contrib/ids_1.0.1.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/ids_1.0.1.tar.gz
 Summary  : Generate Random Identifiers
@@ -13,7 +13,6 @@ License  : MIT
 Requires: R-openssl
 Requires: R-uuid
 BuildRequires : R-openssl
-BuildRequires : R-rcorpora
 BuildRequires : R-uuid
 BuildRequires : buildreq-R
 
@@ -33,10 +32,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1620236227
+export SOURCE_DATE_EPOCH=1633662821
 
 %install
-export SOURCE_DATE_EPOCH=1620236227
+export SOURCE_DATE_EPOCH=1633662821
 rm -rf %{buildroot}
 export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -50,9 +49,9 @@ mkdir -p %{buildroot}/usr/lib64/R/library
 
 mkdir -p ~/.R
 mkdir -p ~/.stash
-echo "CFLAGS = $CFLAGS -march=haswell -ftree-vectorize " > ~/.R/Makevars
-echo "FFLAGS = $FFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
-echo "CXXFLAGS = $CXXFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
+echo "CFLAGS = $CFLAGS -march=x86-64-v3 -ftree-vectorize " > ~/.R/Makevars
+echo "FFLAGS = $FFLAGS -march=x86-64-v3 -ftree-vectorize " >> ~/.R/Makevars
+echo "CXXFLAGS = $CXXFLAGS -march=x86-64-v3 -ftree-vectorize " >> ~/.R/Makevars
 R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library ids
 for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx2 ; mv $i.avx2 ~/.stash/; done
 echo "CFLAGS = $CFLAGS -march=skylake-avx512 -ftree-vectorize " > ~/.R/Makevars
