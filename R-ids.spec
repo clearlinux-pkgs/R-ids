@@ -4,7 +4,7 @@
 #
 Name     : R-ids
 Version  : 1.0.1
-Release  : 12
+Release  : 13
 URL      : https://cran.r-project.org/src/contrib/ids_1.0.1.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/ids_1.0.1.tar.gz
 Summary  : Generate Random Identifiers
